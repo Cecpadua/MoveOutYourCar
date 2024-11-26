@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
+  <title>Car Banner Manager</title>
+</head>
+
+<body width="100%" height="100%">
+  <div class="container mx-auto">
+    <!-- 主容器 -->
+    <div class="flex w-full max-w-4xl bg-white p-6 grow">
+      <!-- 左边 Form -->
+      <form id="car-form" class="w-1/2 pr-4 border-r">
+        <div class="mb-4">
+          <label for="brand" class="block text-gray-700 font-small">品牌</label>
+          <select id="brand"
+            class="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <optgroup label="品牌列表">
+              <option value="奔驰">奔驰(Benz)</option>
+              <option value="宝马">宝马(BMW)</option>
+              <option value="奥迪">奥迪(Audi)</option>
+              <option value="大众">大众(Volkswagen)</option>
+              <option value="丰田">丰田(Toyota)</option>
+              <option value="本田">本田(Honda)</option>
+              <option value="福特">福特(Ford)</option>
+              <option value="现代">现代(Hyundai)</option>
+              <option value="雪佛兰">雪佛兰(Chevrolet)</option>
+              <option value="日产">日产(Nissan)</option>
+              <option value="起亚">起亚(Kia)</option>
+              <option value="雷克萨斯">雷克萨斯(Lexus)</option>
+              <option value="保时捷">保时捷(Porsche)</option>
+              <option value="兰博基尼">兰博基尼(Lamborghini)</option>
+              <option value="法拉利">法拉利(Ferrari)</option>
+              <option value="玛莎拉蒂">玛莎拉蒂(Maserati)</option>
+              <option value="捷豹">捷豹(Jaguar)</option>
+            </optgroup>
+            <option value="custom">自定义品牌</option>
+          </select>
+        </div>
+        <div id="custom-brand-container" class="mb-4 hidden">
+          <label for="custom-brand" class="block text-gray-700 font-small">自定义品牌</label>
+          <input type="text" id="custom-brand"
+            class="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        </div>
+        <div class="mb-4">
+          <label for="model" class="block text-gray-700 font-small">型号</label>
+          <input type="text" id="model"
+            class="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        </div>
+        <div class="mb-4">
+          <label for="color" class="block text-gray-700 font-small">颜色</label>
+          <!-- <input type="text" id="color"
+            class="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" /> -->
+            <select id="color" 
+            class="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <optgroup label="颜色列表">
+              <option value="红色">红色</option>
+              <option value="橙色">橙色</option>
+              <option value="黄色">黄色</option>
+              <option value="绿色">绿色</option>
+              <option value="蓝色">蓝色</option>
+              <option value="紫色">紫色</option>
+              <option value="黑色">黑色</option>
+              <option value="白色">白色</option>
+              <option value="灰色">灰色</option>
+              <option value="棕色">棕色</option>
+              <option value="粉色">粉色</option>
+              <option value="银色">银色</option>
+              <option value="金色">金色</option>
+              <option value="青色">青色</option>
+              <option value="香槟色">香槟色</option>
+              <option value="咖啡色">咖啡色</option>
+              <option value="香槟色">香槟色</option>
+            </optgroup>
+            </select>
+        </div>
+        <div class="mb-6">
+          <label for="license" class="block text-gray-700 font-small">车牌</label>
+          <input type="text" id="license"
+            class="w-full mt-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        </div>
+        <button type="button" id="add-license"
+          class="w-full py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-300">
+          添加到列表
+        </button>
+      </form>
+
+      <!-- 右边 License List -->
+      <div id="license-list" class="w-1/2 pl-4 h-1/2">
+        <div class="overflow-y-auto h-64 border border-gray-200 rounded-lg p-4 bg-gray-50" id="list-of-car">
+          <!-- 动态生成的车牌 -->
+        </div>
+        
+      
+        <!-- 字体颜色和背景颜色 -->
+        <div class="flex flex-wrap mb-4">
+          <div>
+            <label for="screen-select" class="text-gray-700 font-small mr-4">选显示器</label>
+            <select id="screen-select" id="screen-select"
+              class="w-48 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+            </select>
+          </div>
+          <div>
+            <label class="text-gray-700 font-small mr-4">选择位置</label>
+            <select id="position"
+              class="w-48 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+              <option value="top|left">左上方</option>
+              <option value="top|center">中上方</option>
+              <option value="top|right">右上方</option>
+              <option value="center|left">左侧</option>
+              <option value="center|center">正中</option>
+              <option value="center|right">右侧</option>
+              <option value="bottom|left">左下方</option>
+              <option value="bottom|center">正下方</option>
+              <option value="bottom|right">右下方</option>
+            </select>
+          </div>
+          <div>
+            <label for="font-color" class="block text-gray-700 font-small mb-1">字体颜色</label>
+            <input type="color" id="font-color" value="#000000"
+              class="w-20 h-10 p-1 border border-gray-300 rounded-lg focus:outline-none">
+          </div>
+          <div>
+            <label for="bg-color" class="block text-gray-700 font-small mb-1">背景颜色</label>
+            <input type="color" id="bg-color" value="#ffffff"
+              class="w-20 h-10 p-1 border border-gray-300 rounded-lg focus:outline-none">
+          </div>
+          <div>
+            <label for="font-size" class="text-gray-700 font-small mr-4">字体大小 (px)</label>
+            <input type="number" id="font-size" value="48"
+              class="w-24 p-2 border border-gray-300 rounded-lg focus:outline-none">
+          </div>
+        </div>
+      
+        <!-- 操作按钮 -->
+        <div class="flex space-x-4">
+          <button id="show-banner" 
+            class="flex-1 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-300">
+            显示
+          </button>
+          <button id="close-banners" 
+            class="flex-1 py-2 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 transition duration-300">
+            关闭
+          </button>
+        </div>
+    
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const licenseContainer = document.getElementById("list-of-car");
+    const carList = [
+      { brand: "奔驰", model: "GLC", color: "黑色", license: "AA123BB" },
+    ];
+
+    const showBanner = () =>{
+      const options = {
+        displayIndex: parseInt(document.getElementById("screen-select").value,  10),
+        position: document.getElementById("position").value,
+        backgroundColor: document.getElementById("bg-color").value,
+        color: document.getElementById("font-color").value,
+        fontSize: document.getElementById("font-size").value + "px",
+        carList: carList,
+      };
+      window.electron.showBanner(options);
+    };
+
+    renderCarList();
+
+    // 切换自定义品牌输入框显示
+    document.getElementById("brand").addEventListener("change", function () {
+      const customBrandContainer = document.getElementById("custom-brand-container");
+      customBrandContainer.classList.toggle("hidden", this.value !== "custom");
+    });
+
+    // 添加车辆到列表
+    document.getElementById("add-license").addEventListener("click", () => {
+      const brand = document.getElementById("brand").value.trim() === "custom"
+        ? document.getElementById("custom-brand").value.trim()
+        : document.getElementById("brand").value.trim();
+      const model = document.getElementById("model").value||"";
+      const color = document.getElementById("color").value||"";
+      const license = document.getElementById("license").value.trim().toUpperCase();
+
+      if (carList.some((car) => car.license === license)) {
+        alert("车牌已存在！");
+        return;
+      }
+
+      // 添加到列表
+      const newCar = { brand, model, color, license };
+      carList.push(newCar);
+      renderCarList();
+      
+      (async () => {
+        const isShowing = await window.electron.getBannerStatus();
+        if (isShowing) showBanner();
+      })();
+      
+ 
+      // 清空表单
+      document.getElementById("car-form").reset();
+      document.getElementById("custom-brand-container").classList.add("hidden");
+    });
+
+    // 渲染车牌列表
+    function renderCarList() {
+      licenseContainer.innerHTML = "";
+      carList.forEach((car, index) => {
+        const carDiv = document.createElement("div");
+        carDiv.className = "flex items-center mb-2";
+        carDiv.innerHTML = `
+          <span class="text-gray-700">${car.brand} ${car.model} (${car.color}) - ${car.license}</span>
+          <button type="button" class="ml-auto text-red-500 hover:underline" data-index="${index}">删除</button>
+        `;
+        licenseContainer.appendChild(carDiv);
+      });
+
+      // 删除按钮事件
+      licenseContainer.querySelectorAll("button").forEach((btn) =>
+        btn.addEventListener("click", function () {
+          const index = parseInt(this.dataset.index, 10);
+          if (confirm("确定要删除这辆车吗？")) {
+            carList.splice(index, 1);
+            renderCarList();
+          }
+        })
+      );
+    
+      (async () => {
+        const isShowing = await window.electron.getBannerStatus();
+        if (isShowing) showBanner();
+      })();
+    }
+
+
+
+    // 显示器选择
+    window.electron.getScreens();
+    window.electron.onScreens((screens) => {
+      console.log(screens);
+      const screenSelect = document.getElementById("screen-select");
+      screenSelect.innerHTML = screens
+        .map((screen, index) => `<option value="${index}">显示器 ${index + 1} - ${screen.display.label || "主屏幕"}</option>`)
+        .join("");
+    });
+
+
+
+
+    document.getElementById("show-banner").addEventListener("click", () => {
+      if (!carList) {
+        alert("请选择至少一个车！");
+        return;
+      }
+      showBanner();
+    });
+
+
+
+    document.getElementById("close-banners").addEventListener("click", () => {
+      window.electron.closeBanners();
+    });
+  </script>
+</body>
+
+</html>

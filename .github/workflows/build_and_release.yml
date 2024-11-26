@@ -1,0 +1,43 @@
+name: build and release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run package -- --arch="x64"
+
+      - name: Create a Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: ./dist/*.zip
+          tag_name: ${{ github.sha }}
+          release_name: ${{ github.sha }}
+          body: |
+            Changes in this Release
+            - Added new feature
+            - Fixed a bug
+            - Improved performance
+
+      - name: Get the URL of the Release Asset
+        id: get_release_asset
+        run: echo "${{ steps.create_release.outputs.upload_url }}"
